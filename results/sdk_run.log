@@ -1,0 +1,121 @@
+﻿
+===== [sdk] session 1: new agent instance, state loaded from disk =====
+[SDK/agent.py] session 1 ready, resume=None
+
+--- s1t1 USER: Hi! I'm vegetarian and I'm allergic to peanuts. Please remember both.
+[SDK/agent.py] tool call save_memory({'key': 'diet', 'value': 'vegetarian'})
+[SDK/agent.py] tool call save_memory({'key': 'allergies', 'value': 'peanuts'})
+[SDK/agent.py] usage in=4 cache_read=5451 cache_write=0 out=238 cost=$0.00600
+--- s1t1 AGENT: I saved both:
+- Diet: vegetarian
+- Allergy: peanuts
+
+From now on, every recipe I suggest will be vegetarian and peanut-free. Do you want some recipe ideas, maybe something quick for tonight?
+--- s1t1 in=4 cache_read=5451 cache_write=0 out=238 calls=2 tools=['save_memory', 'save_memory'] cost=$0.0060 time=8.46s
+
+--- s1t2 USER: Find me a dinner I can cook in under 30 minutes.
+[SDK/agent.py] tool call search_recipes({'query': 'dinner', 'diet': 'vegetarian', 'exclude_allergens': ['peanuts'], 'max_minutes': 30})
+[SDK/agent.py] tool call search_recipes({'diet': 'vegetarian', 'exclude_allergens': ['peanuts'], 'max_minutes': 30})
+[SDK/agent.py] usage in=8 cache_read=9312 cache_write=795 out=524 cost=$0.01873
+--- s1t2 AGENT: These vegetarian, peanut-free dinners all take under 30 minutes:
+
+- r08 Greek Salad with Feta: 10 min (contains dairy)
+- r12 Veggie Fried Rice: 15 min (eggs, soy)
+- r14 Black Bean Quesadillas: 15 min (dairy, gluten)
+- r01 Chickpea Spinach Curry: 25 min (none of the common allergens)
+- r02 Shakshuka: 25 min (eggs)
+
+For a filling dinner, I'd go with r01 Chickpea Spinach Curry or r12 Veggie Fried Rice. Should I show you the full recipe for one of them or add its ingredients to your shopping list?
+--- s1t2 in=8 cache_read=9312 cache_write=795 out=524 calls=3 tools=['search_recipes', 'search_recipes'] cost=$0.0187 time=11.87s
+
+--- s1t3 USER: Look online for a shakshuka recipe and list its ingredients.
+[SDK/agent.py] tool call search_web_recipes({'query': 'shakshuka'})
+[SDK/agent.py] tool call get_recipe({'recipe_id': 'mdb:52963'})
+[SDK/agent.py] usage in=8 cache_read=11829 cache_write=1009 out=489 cost=$0.02025
+--- s1t3 AGENT: I found mdb:52963 Shakshuka (Egyptian) on TheMealDB. It's vegetarian and has no peanuts.
+
+Ingredients (the source doesn't give amounts):
+- Olive oil
+- Red onions
+- Red chilli
+- Garlic
+- Fresh coriander (stalks and leaves)
+- Cherry tomatoes
+- Caster sugar
+- Eggs (it makes 4 portions)
+- Feta
+- Crusty bread for serving
+
+Steps in short: soften the onion, chilli, garlic and coriander stalks for 5 minutes. Add the tomatoes and sugar and simmer for 8 to 10 minutes. Make 4 dips and crack an egg into each, then cover and cook on low for 6 to 8 minutes. Top with coriander.
+
+Should I add these to your shopping list?
+--- s1t3 in=8 cache_read=11829 cache_write=1009 out=489 calls=3 tools=['search_web_recipes', 'get_recipe'] cost=$0.0203 time=11.89s
+
+--- s1t4 USER: Great, I'll cook r01 Chickpea Spinach Curry tonight. Add all its ingredients to my shopping list and save it as a favorite.
+[SDK/agent.py] tool call add_to_shopping_list({'recipe_id': 'r01'})
+[SDK/agent.py] tool call save_memory({'key': 'favorites', 'value': 'chickpea spinach curry'})
+[SDK/agent.py] usage in=6 cache_read=9662 cache_write=631 out=266 cost=$0.01232
+--- s1t4 AGENT: I added all 7 ingredients for r01 Chickpea Spinach Curry to your shopping list:
+- Chickpeas
+- Spinach
+- Onion
+- Garlic
+- Coconut milk
+- Curry powder
+- Rice
+
+I also saved Chickpea Spinach Curry as one of your favorites. Enjoy your dinner tonight!
+--- s1t4 in=6 cache_read=9662 cache_write=631 out=266 calls=2 tools=['add_to_shopping_list', 'save_memory'] cost=$0.0123 time=8.86s
+
+===== [sdk] session 2: new agent instance, state loaded from disk =====
+[SDK/agent.py] session 2 ready, resume=None
+
+--- s2t1 USER: Hi again. What do you remember about my diet and allergies?
+[SDK/agent.py] usage in=2 cache_read=2612 cache_write=0 out=166 cost=$0.00398
+--- s2t1 AGENT: Welcome back! Here's what I have saved about you:
+
+- **Diet:** vegetarian
+- **Allergies:** peanuts. I'll never suggest a recipe that has them.
+- **Favorite:** r01 Chickpea Spinach Curry
+
+If anything has changed, like a new allergy or a different diet, just tell me and I'll update it. Want some recipe ideas for today?
+--- s2t1 in=2 cache_read=2612 cache_write=0 out=166 calls=1 tools=[] cost=$0.0040 time=5.51s
+
+--- s2t2 USER: Actually, I started eating fish. Update that, and suggest a fish dinner for tonight.
+[SDK/agent.py] tool call save_memory({'key': 'diet', 'value': 'pescatarian'})
+[SDK/agent.py] tool call search_recipes({'query': 'fish', 'diet': 'pescatarian', 'exclude_allergens': ['peanuts']})
+[SDK/agent.py] usage in=6 cache_read=5422 cache_write=527 out=379 cost=$0.01290
+--- s2t2 AGENT: I changed your diet from vegetarian to pescatarian. Your peanut allergy is still saved.
+
+For dinner tonight, try:
+
+- **r09 Fish Tacos**: 25 minutes, peanut-free. They contain fish and gluten.
+
+It was the only fish recipe in my catalog. Want the ingredients and steps, or should I add it to your shopping list? I can also look online for more fish dishes, like baked salmon or fish curry.
+--- s2t2 in=6 cache_read=5422 cache_write=527 out=379 calls=2 tools=['save_memory', 'search_recipes'] cost=$0.0129 time=9.33s
+
+--- s2t3 USER: What's on my shopping list now?
+[SDK/agent.py] tool call get_shopping_list({})
+[SDK/agent.py] usage in=6 cache_read=6720 cache_write=520 out=170 cost=$0.00893
+--- s2t3 AGENT: Your shopping list has 7 items:
+
+- chickpeas
+- spinach
+- onion
+- garlic
+- coconut milk
+- curry powder
+- rice
+
+These look like the ingredients for your favorite, r01 Chickpea Spinach Curry. Nothing for r09 Fish Tacos is on the list yet. Should I add its ingredients?
+--- s2t3 in=6 cache_read=6720 cache_write=520 out=170 calls=2 tools=['get_shopping_list'] cost=$0.0089 time=6.17s
+
+===== [sdk] checks 8/8 | total cost $0.0831 | wrote results/sdk.json
+  [PASS] C1: allergy saved to memory (state) (allergies='peanuts')
+  [PASS] C2: contradiction resolved: diet is now pescatarian (state) (diet='pescatarian')
+  [PASS] C3: old decision kept in history vegetarian -> pescatarian (state) (history: None->vegetarian; vegetarian->pescatarian)
+  [PASS] C4: favorite saved (state) (favorites='chickpea spinach curry')
+  [PASS] C5: recipe ingredients on the shopping list file (state) (7 items, missing=[])
+  [PASS] C6: external tool used for the online search (tools=['search_web_recipes', 'get_recipe'])
+  [PASS] C7: session 2 recalls diet and allergy from memory (found=['vegetarian', 'peanut'])
+  [PASS] C8: fish suggestion respects the peanut allergy (forbidden found=[])

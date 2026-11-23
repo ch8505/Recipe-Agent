@@ -1,0 +1,193 @@
+{
+  "harness": "sdk",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "turns": [
+    {
+      "session": 1,
+      "turn": 1,
+      "prompt": "Hi! I'm vegetarian and I'm allergic to peanuts. Please remember both.",
+      "answer": "I saved both:\n- Diet: vegetarian\n- Allergy: peanuts\n\nFrom now on, every recipe I suggest will be vegetarian and peanut-free. Do you want some recipe ideas, maybe something quick for tonight?",
+      "tools": [
+        "save_memory",
+        "save_memory"
+      ],
+      "input_tokens": 4,
+      "cache_read_tokens": 5451,
+      "cache_write_tokens": 0,
+      "output_tokens": 238,
+      "model_calls": 2,
+      "cost_usd": 0.005997,
+      "seconds": 8.46
+    },
+    {
+      "session": 1,
+      "turn": 2,
+      "prompt": "Find me a dinner I can cook in under 30 minutes.",
+      "answer": "These vegetarian, peanut-free dinners all take under 30 minutes:\n\n- r08 Greek Salad with Feta: 10 min (contains dairy)\n- r12 Veggie Fried Rice: 15 min (eggs, soy)\n- r14 Black Bean Quesadillas: 15 min (dairy, gluten)\n- r01 Chickpea Spinach Curry: 25 min (none of the common allergens)\n- r02 Shakshuka: 25 min (eggs)\n\nFor a filling dinner, I'd go with r01 Chickpea Spinach Curry or r12 Veggie Fried Rice. Should I show you the full recipe for one of them or add its ingredients to your shopping list?",
+      "tools": [
+        "search_recipes",
+        "search_recipes"
+      ],
+      "input_tokens": 8,
+      "cache_read_tokens": 9312,
+      "cache_write_tokens": 795,
+      "output_tokens": 524,
+      "model_calls": 3,
+      "cost_usd": 0.018734,
+      "seconds": 11.87
+    },
+    {
+      "session": 1,
+      "turn": 3,
+      "prompt": "Look online for a shakshuka recipe and list its ingredients.",
+      "answer": "I found mdb:52963 Shakshuka (Egyptian) on TheMealDB. It's vegetarian and has no peanuts.\n\nIngredients (the source doesn't give amounts):\n- Olive oil\n- Red onions\n- Red chilli\n- Garlic\n- Fresh coriander (stalks and leaves)\n- Cherry tomatoes\n- Caster sugar\n- Eggs (it makes 4 portions)\n- Feta\n- Crusty bread for serving\n\nSteps in short: soften the onion, chilli, garlic and coriander stalks for 5 minutes. Add the tomatoes and sugar and simmer for 8 to 10 minutes. Make 4 dips and crack an egg into each, then cover and cook on low for 6 to 8 minutes. Top with coriander.\n\nShould I add these to your shopping list?",
+      "tools": [
+        "search_web_recipes",
+        "get_recipe"
+      ],
+      "input_tokens": 8,
+      "cache_read_tokens": 11829,
+      "cache_write_tokens": 1009,
+      "output_tokens": 489,
+      "model_calls": 3,
+      "cost_usd": 0.02025,
+      "seconds": 11.89
+    },
+    {
+      "session": 1,
+      "turn": 4,
+      "prompt": "Great, I'll cook r01 Chickpea Spinach Curry tonight. Add all its ingredients to my shopping list and save it as a favorite.",
+      "answer": "I added all 7 ingredients for r01 Chickpea Spinach Curry to your shopping list:\n- Chickpeas\n- Spinach\n- Onion\n- Garlic\n- Coconut milk\n- Curry powder\n- Rice\n\nI also saved Chickpea Spinach Curry as one of your favorites. Enjoy your dinner tonight!",
+      "tools": [
+        "add_to_shopping_list",
+        "save_memory"
+      ],
+      "input_tokens": 6,
+      "cache_read_tokens": 9662,
+      "cache_write_tokens": 631,
+      "output_tokens": 266,
+      "model_calls": 2,
+      "cost_usd": 0.012324,
+      "seconds": 8.86
+    },
+    {
+      "session": 2,
+      "turn": 1,
+      "prompt": "Hi again. What do you remember about my diet and allergies?",
+      "answer": "Welcome back! Here's what I have saved about you:\n\n- **Diet:** vegetarian\n- **Allergies:** peanuts. I'll never suggest a recipe that has them.\n- **Favorite:** r01 Chickpea Spinach Curry\n\nIf anything has changed, like a new allergy or a different diet, just tell me and I'll update it. Want some recipe ideas for today?",
+      "tools": [],
+      "input_tokens": 2,
+      "cache_read_tokens": 2612,
+      "cache_write_tokens": 0,
+      "output_tokens": 166,
+      "model_calls": 1,
+      "cost_usd": 0.003978,
+      "seconds": 5.51
+    },
+    {
+      "session": 2,
+      "turn": 2,
+      "prompt": "Actually, I started eating fish. Update that, and suggest a fish dinner for tonight.",
+      "answer": "I changed your diet from vegetarian to pescatarian. Your peanut allergy is still saved.\n\nFor dinner tonight, try:\n\n- **r09 Fish Tacos**: 25 minutes, peanut-free. They contain fish and gluten.\n\nIt was the only fish recipe in my catalog. Want the ingredients and steps, or should I add it to your shopping list? I can also look online for more fish dishes, like baked salmon or fish curry.",
+      "tools": [
+        "save_memory",
+        "search_recipes"
+      ],
+      "input_tokens": 6,
+      "cache_read_tokens": 5422,
+      "cache_write_tokens": 527,
+      "output_tokens": 379,
+      "model_calls": 2,
+      "cost_usd": 0.012904,
+      "seconds": 9.33
+    },
+    {
+      "session": 2,
+      "turn": 3,
+      "prompt": "What's on my shopping list now?",
+      "answer": "Your shopping list has 7 items:\n\n- chickpeas\n- spinach\n- onion\n- garlic\n- coconut milk\n- curry powder\n- rice\n\nThese look like the ingredients for your favorite, r01 Chickpea Spinach Curry. Nothing for r09 Fish Tacos is on the list yet. Should I add its ingredients?",
+      "tools": [
+        "get_shopping_list"
+      ],
+      "input_tokens": 6,
+      "cache_read_tokens": 6720,
+      "cache_write_tokens": 520,
+      "output_tokens": 170,
+      "model_calls": 2,
+      "cost_usd": 0.008928,
+      "seconds": 6.17
+    }
+  ],
+  "totals": {
+    "input_tokens": 40,
+    "cache_read_tokens": 51008,
+    "cache_write_tokens": 3482,
+    "output_tokens": 2232,
+    "model_calls": 15,
+    "cost_usd": 0.083115,
+    "cache_hit_pct": 93.5,
+    "seconds": 62.09
+  },
+  "checks": [
+    {
+      "id": "C1",
+      "desc": "allergy saved to memory (state)",
+      "passed": true,
+      "detail": "allergies='peanuts'"
+    },
+    {
+      "id": "C2",
+      "desc": "contradiction resolved: diet is now pescatarian (state)",
+      "passed": true,
+      "detail": "diet='pescatarian'"
+    },
+    {
+      "id": "C3",
+      "desc": "old decision kept in history vegetarian -> pescatarian (state)",
+      "passed": true,
+      "detail": "history: None->vegetarian; vegetarian->pescatarian"
+    },
+    {
+      "id": "C4",
+      "desc": "favorite saved (state)",
+      "passed": true,
+      "detail": "favorites='chickpea spinach curry'"
+    },
+    {
+      "id": "C5",
+      "desc": "recipe ingredients on the shopping list file (state)",
+      "passed": true,
+      "detail": "7 items, missing=[]"
+    },
+    {
+      "id": "C6",
+      "desc": "external tool used for the online search",
+      "passed": true,
+      "detail": "tools=['search_web_recipes', 'get_recipe']"
+    },
+    {
+      "id": "C7",
+      "desc": "session 2 recalls diet and allergy from memory",
+      "passed": true,
+      "detail": "found=['vegetarian', 'peanut']"
+    },
+    {
+      "id": "C8",
+      "desc": "fish suggestion respects the peanut allergy",
+      "passed": true,
+      "detail": "forbidden found=[]"
+    }
+  ],
+  "checks_passed": "8/8",
+  "loc": {
+    "loop": 4,
+    "tools": 18,
+    "history": 6,
+    "memory": 8,
+    "context": 2,
+    "compaction": 1,
+    "caching": 1,
+    "tokens": 13
+  }
+}

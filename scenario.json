@@ -1,0 +1,35 @@
+{
+  "name": "ChefScout: two sessions with a changed diet",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "compaction_threshold_tokens": 12000,
+  "sessions": [
+    {
+      "id": 1,
+      "turns": [
+        "Hi! I'm vegetarian and I'm allergic to peanuts. Please remember both.",
+        "Find me a dinner I can cook in under 30 minutes.",
+        "Look online for a shakshuka recipe and list its ingredients.",
+        "Great, I'll cook r01 Chickpea Spinach Curry tonight. Add all its ingredients to my shopping list and save it as a favorite."
+      ]
+    },
+    {
+      "id": 2,
+      "turns": [
+        "Hi again. What do you remember about my diet and allergies?",
+        "Actually, I started eating fish. Update that, and suggest a fish dinner for tonight.",
+        "What's on my shopping list now?"
+      ]
+    }
+  ],
+  "checks": [
+    {"id": "C1", "desc": "allergy saved to memory (state)", "type": "memory_contains", "key": "allergies", "value": "peanut"},
+    {"id": "C2", "desc": "contradiction resolved: diet is now pescatarian (state)", "type": "memory_equals", "key": "diet", "value": "pescatarian"},
+    {"id": "C3", "desc": "old decision kept in history vegetarian -> pescatarian (state)", "type": "memory_changed", "key": "diet", "old": "vegetarian", "new": "pescatarian"},
+    {"id": "C4", "desc": "favorite saved (state)", "type": "memory_contains", "key": "favorites", "value": "chickpea"},
+    {"id": "C5", "desc": "recipe ingredients on the shopping list file (state)", "type": "shopping_contains", "values": ["chickpeas", "coconut milk", "spinach"]},
+    {"id": "C6", "desc": "external tool used for the online search", "type": "tool_called", "turn": "s1t3", "tool": "search_web_recipes"},
+    {"id": "C7", "desc": "session 2 recalls diet and allergy from memory", "type": "answer_contains", "turn": "s2t1", "values": ["vegetarian", "peanut"]},
+    {"id": "C8", "desc": "fish suggestion respects the peanut allergy", "type": "answer_not_contains", "turn": "s2t2", "values": ["r15", "peanut shrimp"]}
+  ]
+}
