@@ -55,27 +55,27 @@
 
 | מדד | API | SDK |
 |---|---|---|
-| input (לא מ-cache) | לא הורץ עדיין | 40 |
-| cache read | לא הורץ עדיין | 51,008 |
-| cache write | לא הורץ עדיין | 3,482 |
-| output | לא הורץ עדיין | 2,232 |
-| אחוז cache (read מתוך כל ה-input) | לא הורץ עדיין | 93.5% |
-| קריאות למודל | לא הורץ עדיין | 15 |
-| עלות כוללת | לא הורץ עדיין | $0.0831 |
-| זמן כולל | לא הורץ עדיין | 62.09s |
-| בדיקות שעברו | לא הורץ עדיין | 8/8 |
+| input (לא מ-cache) | 44 | 40 |
+| cache read | 35,432 | 51,008 |
+| cache write | 3,286 | 3,482 |
+| output | 2,296 | 2,232 |
+| אחוז cache (read מתוך כל ה-input) | 91.4% | 93.5% |
+| קריאות למודל | 15 | 15 |
+| עלות כוללת | $0.0696 | $0.0831 |
+| זמן כולל | 33.84s | 62.09s |
+| בדיקות שעברו | 8/8 | 8/8 |
 
 ### לפי תור
 
 | תור | API in/read/write/out | API קריאות | API כלים | API עלות | SDK in/read/write/out | SDK קריאות | SDK כלים | SDK עלות |
 |---|---|---|---|---|---|---|---|---|
-| s1t1 | - | - | - | - | 4/5451/0/238 | 2 | save_memory, save_memory | $0.0060 |
-| s1t2 | - | - | - | - | 8/9312/795/524 | 3 | search_recipes, search_recipes | $0.0187 |
-| s1t3 | - | - | - | - | 8/11829/1009/489 | 3 | search_web_recipes, get_recipe | $0.0203 |
-| s1t4 | - | - | - | - | 6/9662/631/266 | 2 | add_to_shopping_list, save_memory | $0.0123 |
-| s2t1 | - | - | - | - | 2/2612/0/166 | 1 | - | $0.0040 |
-| s2t2 | - | - | - | - | 6/5422/527/379 | 2 | save_memory, search_recipes | $0.0129 |
-| s2t3 | - | - | - | - | 6/6720/520/170 | 2 | get_shopping_list | $0.0089 |
+| s1t1 | 6/3526/227/209 | 2 | save_memory, save_memory | $0.0060 | 4/5451/0/238 | 2 | save_memory, save_memory | $0.0060 |
+| s1t2 | 8/6345/615/539 | 3 | search_recipes, search_recipes | $0.0152 | 8/9312/795/524 | 3 | search_recipes, search_recipes | $0.0187 |
+| s1t3 | 6/5521/636/293 | 2 | search_web_recipes | $0.0102 | 8/11829/1009/489 | 3 | search_web_recipes, get_recipe | $0.0203 |
+| s1t4 | 6/6797/568/304 | 2 | add_to_shopping_list, save_memory | $0.0103 | 6/9662/631/266 | 2 | add_to_shopping_list, save_memory | $0.0123 |
+| s2t1 | 4/1644/129/148 | 1 | - | $0.0040 | 2/2612/0/166 | 1 | - | $0.0040 |
+| s2t2 | 8/6172/841/640 | 3 | save_memory, search_recipes, recall_memory | $0.0183 | 6/5422/527/379 | 2 | save_memory, search_recipes | $0.0129 |
+| s2t3 | 6/5427/270/163 | 2 | get_shopping_list | $0.0057 | 6/6720/520/170 | 2 | get_shopping_list | $0.0089 |
 
 ### שורות קוד לכל חלק ב-harness
 
@@ -97,27 +97,31 @@ API = שורות קוד (בלי הערות ושורות ריקות) ב-`API/harn
 
 | בדיקה | תיאור | API | SDK |
 |---|---|---|---|
-| C1 | allergy saved to memory (state) | - | ✅ |
-| C2 | contradiction resolved: diet is now pescatarian (state) | - | ✅ |
-| C3 | old decision kept in history vegetarian -> pescatarian (state) | - | ✅ |
-| C4 | favorite saved (state) | - | ✅ |
-| C5 | recipe ingredients on the shopping list file (state) | - | ✅ |
-| C6 | external tool used for the online search | - | ✅ |
-| C7 | session 2 recalls diet and allergy from memory | - | ✅ |
-| C8 | fish suggestion respects the peanut allergy | - | ✅ |
+| C1 | allergy saved to memory (state) | ✅ | ✅ |
+| C2 | contradiction resolved: diet is now pescatarian (state) | ✅ | ✅ |
+| C3 | old decision kept in history vegetarian -> pescatarian (state) | ✅ | ✅ |
+| C4 | favorite saved (state) | ✅ | ✅ |
+| C5 | recipe ingredients on the shopping list file (state) | ✅ | ✅ |
+| C6 | external tool used for the online search | ✅ | ✅ |
+| C7 | session 2 recalls diet and allergy from memory | ✅ | ✅ |
+| C8 | fish suggestion respects the peanut allergy | ✅ | ✅ |
 <!-- TABLES:END -->
 
 ## 5. ניתוח
 
 ### איפה ה-SDK עלה יותר טוקנים ואיפה פחות, ולמה?
 
+**בשורה התחתונה:** שתי הגרסאות עברו 8/8 בדיקות, ושתיהן עשו 15 קריאות למודל. ה-SDK שלח **41% יותר טוקני input** (54,530 מול 38,762), עלה **19% יותר** ($0.0831 מול $0.0696), ולקח **פי 1.8 זמן** (62 שניות מול 34).
+
 **יותר:**
-- **בסיס קבוע גדול יותר.** גם עם system prompt משלי, Claude Code מוסיף הקשר משלו: את CLAUDE.md עטוף בהוראות שלו, מידע על הסביבה ואת סכמות כלי ה-MCP עם הקידומת `mcp__chef__`. בתור s2t1 (קריאה אחת, בלי כלים) ה-SDK שלח כ-2,600 טוקני input, בעוד שהטקסט שלי (system, 7 כלים, זיכרון והודעה) הוא בערך 1,200 טוקנים. ההפרש הוא מה ש-Claude Code מוסיף לבד.
+- **בסיס קבוע גדול יותר.** גם עם system prompt משלי, Claude Code מוסיף הקשר משלו: את CLAUDE.md עטוף בהוראות שלו, מידע על הסביבה ואת סכמות כלי ה-MCP עם הקידומת `mcp__chef__`. התור הנקי ביותר להשוואה הוא s2t1 (קריאה אחת, בלי כלים, אותה בקשה): ה-API שלח 1,777 טוקנים וה-SDK שלח 2,614. כלומר Claude Code מוסיף לבד כ-840 טוקנים (‎+47%) לכל קריאה.
+- **ההפרש מצטבר עם ה-resume.** בסשן 1 הפער גדל מתור לתור (s1t3: ‏6,163 מול 12,846), כי כל קריאה נושאת את הבסיס הנוסף ואת כל ההיסטוריה.
 - **כל הזיכרון בכל תור.** CLAUDE.md נטען במלואו, כולל favorites ו-notes, גם כשהשאלה לא קשורה אליהם. ב-API, `memory.py` מסנן.
 - **כתיבת cache יקרה יותר.** Claude Code כותב cache עם TTL של שעה, שעולה 2x ממחיר input (8$ למיליון). ה-API שלי משתמש ב-TTL של 5 דקות, שעולה 1.25x (5$ למיליון). וידאתי את זה: העלות ש-`total_cost_usd` מדווח מתאימה בדיוק לחישוב עם 8$ למיליון על cache write.
 
 **פחות / שווה:**
-- **אחוז cache גבוה מאוד** (93.5% ב-SDK) בלי לכתוב שורה. ה-SDK מנהל את ה-breakpoints בעצמו.
+- **תור s2t2 היה זול יותר ב-SDK** (5,955 מול 7,021 טוקנים, 2 קריאות מול 3). הסיבה היא דווקא הסינון שלי: `memory.py` השאיר את favorites בחוץ, כי ההודעה לא עסקה בהם. המודל החליט שהוא רוצה אותם, וקרא ל-`recall_memory`, וזו קריאה נוספת. ב-SDK כל CLAUDE.md כבר היה בקונטקסט. זה ה-trade-off של context engineering: פחות טוקנים בכל תור, אבל לפעמים המודל צריך לשלוף בעצמו.
+- **אחוז cache גבוה מאוד** בשתי הגרסאות (93.5% ב-SDK, 91.4% ב-API). ב-SDK זה קרה בלי שכתבתי שורה. ב-API זה דרש את שלושת ה-breakpoints של `caching.py`.
 - **TTL של שעה משתלם בין ריצות.** בריצה השנייה ה-cache מהריצה הראשונה עוד היה חם, ולכן s1t1 היה כולו cache read (0 write). "מצב נקי" בדיסק לא מנקה את ה-cache בשרת.
 - **אין קריאת compaction**, כי השיחות קצרות מתחת לסף האוטומטי. ב-API הגדרתי סף נמוך (12K) כדי להדגים את המנגנון, וזה עלול להוסיף קריאת סיכום אחת.
 
